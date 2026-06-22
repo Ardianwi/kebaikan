@@ -47,7 +47,7 @@
             border: 1px solid rgba(255,255,255,0.5);
         }
 
-        /* --- Profil Mas Trio Header Premium (POSISI TENGAH) --- */
+        /* --- Profil Mas Trio Header Premium --- */
         .mas-trio-header {
             background: linear-gradient(135deg, var(--trio-bg) 0%, #0f172a 100%);
             color: white;
@@ -62,6 +62,8 @@
             border-bottom-right-radius: 25px;
             position: relative;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            /* INI SOLUSI BUG PUTIH-PUTIH: Mencegah header tergencet mengecil */
+            flex-shrink: 0; 
         }
 
         .trio-avatar {
@@ -422,10 +424,10 @@
             clearTimeout(animasiTerimaKasihTimer);
             msgBox.classList.add("show");
             
-            // Waktu animasi diubah tepat menjadi 5 detik (5000ms)
+            // Mengubah durasi tampilnya pesan menjadi persis 1 Menit (60.000 ms)
             animasiTerimaKasihTimer = setTimeout(() => {
                 msgBox.classList.remove("show");
-            }, 5000);
+            }, 60000); 
         }
 
         function updateUI() {
