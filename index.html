@@ -287,7 +287,6 @@
             font-size: 16px;
         }
 
-        /* Tombol Hapus Satuan */
         .btn-hapus-item {
             background: #fee2e2;
             color: #ef4444;
@@ -396,14 +395,11 @@
             inputField.focus();
         }
 
-        // FUNGSI BARU: Hapus Satu Riwayat Saja
         function hapusSatuRiwayat(index) {
             if(confirm("Mas Trio nanya: Yakin ingin menghapus entri ini?")) {
-                // Kurangi nominal dari total
                 totalPemasukan -= riwayatKebaikan[index].nominal;
-                if (totalPemasukan < 0) totalPemasukan = 0; // Jaga-jaga agar tidak minus
+                if (totalPemasukan < 0) totalPemasukan = 0; 
 
-                // Hapus data dari array berdasarkan index
                 riwayatKebaikan.splice(index, 1);
 
                 simpanKeStorage();
@@ -426,9 +422,10 @@
             clearTimeout(animasiTerimaKasihTimer);
             msgBox.classList.add("show");
             
+            // Waktu animasi diubah tepat menjadi 5 detik (5000ms)
             animasiTerimaKasihTimer = setTimeout(() => {
                 msgBox.classList.remove("show");
-            }, 4500);
+            }, 5000);
         }
 
         function updateUI() {
@@ -441,7 +438,6 @@
                 return;
             }
 
-            // Membangun ulang daftar riwayat lengkap dengan tombol hapus satuan
             riwayatKebaikan.forEach((item, index) => {
                 let li = document.createElement("li");
                 li.className = "history-item";
