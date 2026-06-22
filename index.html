@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracker Kebaikan & Mas Trio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #059669; 
+            --primary-hover: #047857; 
+            --secondary: #fbbf24; 
+            --bg-body: #ecfdf5; 
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --trio-bg: #1e293b; 
+            --trio-text: #fde68a; 
+            --border-color: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ccfbf1 100%);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(5, 150, 105, 0.2), 0 0 15px rgba(251, 191, 36, 0.1);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        /* --- Profil Mas Trio Header Premium (POSISI TENGAH) --- */
+        .mas-trio-header {
+            background: linear-gradient(135deg, var(--trio-bg) 0%, #0f172a 100%);
+            color: white;
+            padding: 30px 20px 40px;
+            text-align: center; 
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            gap: 12px;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            position: relative;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .trio-avatar {
+            width: 75px; 
+            height: 75px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 100%);
+            border: 4px solid var(--secondary); 
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px; 
+            flex-shrink: 0;
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .trio-info h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--trio-text);
+            letter-spacing: 0.5px;
+        }
+
+        .trio-info p {
+            margin: 4px 0 0 0;
+            font-size: 13px;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        .content { 
+            position: relative; 
+            z-index: 1; 
+            flex-shrink: 0; 
+            padding: 30px 35px 0;
+            margin-top: -20px; 
+        }
+
+        h1 {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .total-display {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(to right, #059669, #0d9488);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(5, 150, 105, 0.1);
+        }
+
+        .input-wrapper {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 5px 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-wrapper:focus-within {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 5px rgba(5, 150, 105, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .prefix { font-weight: 800; color: var(--primary); font-size: 18px; padding-right: 12px; }
+
+        input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 15px 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        input::placeholder { color: #94a3b8; font-weight: 500; font-size: 16px; }
+
+        button.btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+            color: white;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 800;
+            box-shadow: 0 10px 20px rgba(5, 150, 105, 0.25);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button.btn-primary:active { transform: translateY(3px); box-shadow: 0 5px 10px rgba(5, 150, 105, 0.2); }
+        button.btn-primary:hover { 
+            box-shadow: 0 15px 25px rgba(5, 150, 105, 0.35);
+            filter: brightness(1.05); 
+        }
+
+        .thank-you-msg {
+            background: #fffbeb; 
+            border: 1px solid #fde68a;
+            color: #92400e; 
+            font-size: 13.5px;
+            font-weight: 600;
+            border-radius: 16px;
+            border-top-left-radius: 4px;
+            padding: 0;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            text-align: left; 
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .thank-you-msg.show {
+            padding: 14px 18px;
+            max-height: 120px;
+            opacity: 1;
+            margin-bottom: 20px;
+            transform: translateY(-5px);
+        }
+
+        .history-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-top: 1px solid var(--border-color);
+            padding: 20px 35px;
+            text-align: left;
+            background: #fafaf9; 
+        }
+
+        .history-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow-y: auto;
+            max-height: 200px;
+            padding-right: 5px;
+        }
+
+        .history-list::-webkit-scrollbar { width: 6px; }
+        .history-list::-webkit-scrollbar-track { background: transparent; }
+        .history-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .history-list::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .history-item {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .history-info { display: flex; flex-direction: column; }
+        .history-amount { font-weight: 800; color: var(--primary); font-size: 16px; }
+        .history-time { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 600; }
+        
+        .history-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .history-icon {
+            background: #ecfdf5;
+            color: var(--primary);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        /* Tombol Hapus Satuan */
+        .btn-hapus-item {
+            background: #fee2e2;
+            color: #ef4444;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.2s ease;
+        }
+
+        .btn-hapus-item:hover {
+            opacity: 1;
+            background: #ef4444;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .empty-state { text-align: center; color: #94a3b8; font-size: 13px; padding: 20px 0; font-style: italic; font-weight: 500;}
+
+        .btn-reset { background: none; border: none; color: #ef4444; font-size: 12px; font-weight: 700; cursor: pointer; padding: 0; opacity: 0.7; transition: 0.3s; }
+        .btn-reset:hover { opacity: 1; text-decoration: underline; }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Profil Mas Trio -->
+        <div class="mas-trio-header">
+            <div class="trio-avatar">🧑🏻✨</div>
+            <div class="trio-info">
+                <h2>Mas Trio</h2>
+                <p>Sahabat virtual yang selalu ada untukmu ♡</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <h1>Total Kebaikan Terkumpul</h1>
+            <div class="total-display" id="total-uang">Rp 0</div>
+
+            <div class="input-wrapper">
+                <span class="prefix">Rp</span>
+                <input type="number" id="input-nominal" placeholder="Masukkan nominal...">
+            </div>
+
+            <button class="btn-primary" onclick="tambahKebaikan()">Tebarkan Kebaikan</button>
+            
+            <!-- Chat Bubble Mas Trio -->
+            <div id="thank-you-msg" class="thank-you-msg">
+                <span id="pesan-variasi">Mas Trio bilang: Terimakasih Mas Ardian sudah melakukan kebaikan 💛</span>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <div class="history-title">
+                <span>Riwayat Terakhir</span>
+                <button class="btn-reset" onclick="resetData()">Hapus Semua</button>
+            </div>
+            <ul class="history-list" id="history-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        let totalPemasukan = parseInt(localStorage.getItem('kebaikanTotal')) || 0;
+        let riwayatKebaikan = JSON.parse(localStorage.getItem('kebaikanRiwayat')) || [];
+        let animasiTerimaKasihTimer; 
+
+        // Kumpulan Variasi Pesan Mas Trio
+        const kumpulanPesan = [
+            "💬 Mas Trio: Alhamdulillah, terimakasih Mas Ardian sudah melakukan kebaikan hari ini! 💛",
+            "💬 Mas Trio: MasyaAllah! Terimakasih Mas Ardian sudah melakukan kebaikan, semoga berkah melimpah. ✨",
+            "💬 Mas Trio: Jangan pernah lelah jadi baik ya. Terimakasih Mas Ardian sudah melakukan kebaikan hari ini! 🌿",
+            "💬 Mas Trio: Bangga banget! Terimakasih Mas Ardian sudah melakukan kebaikan, karena kebaikan selalu punya jalan pulang. 🌟",
+            "💬 Mas Trio: Mantap Mas! Terimakasih Mas Ardian sudah melakukan kebaikan. Semangat terus tebar manfaatnya! 🙏",
+            "💬 Mas Trio: Mas Trio senyum liat ini 😊. Terimakasih Mas Ardian sudah melakukan kebaikan!"
+        ];
+
+        updateUI();
+
+        function tambahKebaikan() {
+            let inputField = document.getElementById("input-nominal");
+            let nominal = parseInt(inputField.value);
+
+            if (isNaN(nominal) || nominal <= 0) {
+                inputField.focus();
+                return;
+            }
+
+            totalPemasukan += nominal;
+            let waktuSekarang = new Date().toLocaleString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+            let entriBaru = { nominal: nominal, waktu: waktuSekarang };
+
+            riwayatKebaikan.unshift(entriBaru);
+
+            simpanKeStorage();
+            updateUI();
+            tampilkanTerimaKasih();
+
+            inputField.value = "";
+            inputField.focus();
+        }
+
+        // FUNGSI BARU: Hapus Satu Riwayat Saja
+        function hapusSatuRiwayat(index) {
+            if(confirm("Mas Trio nanya: Yakin ingin menghapus entri ini?")) {
+                // Kurangi nominal dari total
+                totalPemasukan -= riwayatKebaikan[index].nominal;
+                if (totalPemasukan < 0) totalPemasukan = 0; // Jaga-jaga agar tidak minus
+
+                // Hapus data dari array berdasarkan index
+                riwayatKebaikan.splice(index, 1);
+
+                simpanKeStorage();
+                updateUI();
+            }
+        }
+
+        function simpanKeStorage() {
+            localStorage.setItem('kebaikanTotal', totalPemasukan);
+            localStorage.setItem('kebaikanRiwayat', JSON.stringify(riwayatKebaikan));
+        }
+
+        function tampilkanTerimaKasih() {
+            let msgBox = document.getElementById("thank-you-msg");
+            let textSpan = document.getElementById("pesan-variasi");
+            
+            let indexAcak = Math.floor(Math.random() * kumpulanPesan.length);
+            textSpan.innerText = kumpulanPesan[indexAcak];
+            
+            clearTimeout(animasiTerimaKasihTimer);
+            msgBox.classList.add("show");
+            
+            animasiTerimaKasihTimer = setTimeout(() => {
+                msgBox.classList.remove("show");
+            }, 4500);
+        }
+
+        function updateUI() {
+            document.getElementById("total-uang").innerText = "Rp " + totalPemasukan.toLocaleString('id-ID');
+            let listContainer = document.getElementById("history-list");
+            listContainer.innerHTML = ""; 
+
+            if (riwayatKebaikan.length === 0) {
+                listContainer.innerHTML = '<div class="empty-state">Belum ada riwayat kebaikan hari ini.</div>';
+                return;
+            }
+
+            // Membangun ulang daftar riwayat lengkap dengan tombol hapus satuan
+            riwayatKebaikan.forEach((item, index) => {
+                let li = document.createElement("li");
+                li.className = "history-item";
+                li.innerHTML = `
+                    <div class="history-info">
+                        <span class="history-amount">+ Rp ${item.nominal.toLocaleString('id-ID')}</span>
+                        <span class="history-time">${item.waktu}</span>
+                    </div>
+                    <div class="history-right">
+                        <div class="history-icon">🌿</div>
+                        <button class="btn-hapus-item" onclick="hapusSatuRiwayat(${index})" title="Hapus entri ini">🗑️</button>
+                    </div>
+                `;
+                listContainer.appendChild(li);
+            });
+        }
+
+        function resetData() {
+            if(confirm("Yakin ingin menghapus total dan SEMUA riwayat kebaikan ini?")) {
+                totalPemasukan = 0;
+                riwayatKebaikan = [];
+                simpanKeStorage();
+                updateUI();
+            }
+        }
+
+        document.getElementById("input-nominal").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                tambahKebaikan();
+            }
+        });
+    </script>
+</body>
+</html>
