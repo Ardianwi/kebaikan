@@ -43,11 +43,10 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            max-height: 90vh;
+            max-height: 95vh; 
             border: 1px solid rgba(255,255,255,0.5);
         }
 
-        /* --- Profil Mas Trio Header Premium --- */
         .mas-trio-header {
             background: linear-gradient(135deg, var(--trio-bg) 0%, #0f172a 100%);
             color: white;
@@ -62,7 +61,6 @@
             border-bottom-right-radius: 25px;
             position: relative;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            /* INI SOLUSI BUG PUTIH-PUTIH: Mencegah header tergencet mengecil */
             flex-shrink: 0; 
         }
 
@@ -105,7 +103,7 @@
             position: relative; 
             z-index: 1; 
             flex-shrink: 0; 
-            padding: 30px 35px 0;
+            padding: 25px 35px 0;
             margin-top: -20px; 
         }
 
@@ -124,9 +122,16 @@
             background: linear-gradient(to right, #059669, #0d9488);
             -webkit-background-clip: text;
             color: transparent;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             letter-spacing: -1px;
             text-shadow: 2px 2px 4px rgba(5, 150, 105, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px; 
+            margin-bottom: 20px;
         }
 
         .input-wrapper {
@@ -136,8 +141,12 @@
             display: flex;
             align-items: center;
             padding: 5px 20px;
-            margin-bottom: 20px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-wrapper.align-top {
+            align-items: flex-start;
+            padding-top: 5px;
         }
 
         .input-wrapper:focus-within {
@@ -148,25 +157,26 @@
         }
 
         .prefix { font-weight: 800; color: var(--primary); font-size: 18px; padding-right: 12px; }
+        .prefix-icon { font-size: 18px; padding-right: 12px; margin-top: 10px; }
 
-        input {
+        input, textarea {
             flex: 1;
             border: none;
             background: transparent;
-            padding: 15px 0;
-            font-size: 20px;
-            font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--text-main);
             outline: none;
         }
 
-        input::placeholder { color: #94a3b8; font-weight: 500; font-size: 16px; }
+        input { padding: 12px 0; font-size: 18px; font-weight: 700; }
+        textarea { padding: 12px 0; font-size: 15px; font-weight: 600; resize: none; line-height: 1.5; }
+        input::placeholder, textarea::placeholder { color: #94a3b8; font-weight: 500; }
 
         button.btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
             color: white;
             width: 100%;
-            padding: 18px;
+            padding: 16px;
             border: none;
             border-radius: 20px;
             cursor: pointer;
@@ -180,10 +190,7 @@
         }
 
         button.btn-primary:active { transform: translateY(3px); box-shadow: 0 5px 10px rgba(5, 150, 105, 0.2); }
-        button.btn-primary:hover { 
-            box-shadow: 0 15px 25px rgba(5, 150, 105, 0.35);
-            filter: brightness(1.05); 
-        }
+        button.btn-primary:hover { box-shadow: 0 15px 25px rgba(5, 150, 105, 0.35); filter: brightness(1.05); }
 
         .thank-you-msg {
             background: #fffbeb; 
@@ -210,9 +217,41 @@
             padding: 14px 18px;
             max-height: 120px;
             opacity: 1;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             transform: translateY(-5px);
         }
+
+        /* --- CSS BARU: ANIMASI POP-UP KABULKAN PERMINTAAN --- */
+        .animasi-kabulkan {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            background: rgba(15, 23, 42, 0.95); /* Warna slate gelap elegan */
+            color: #fde68a; /* Warna tulisan emas */
+            padding: 25px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3), 0 0 40px rgba(251, 191, 36, 0.3);
+            border: 2px solid #fcd34d;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 9999;
+            backdrop-filter: blur(8px);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efek memantul super mulus */
+            width: 80%;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
+        .animasi-kabulkan.muncul {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        /* ---------------------------------------------------- */
 
         .history-section {
             flex-grow: 1;
@@ -225,25 +264,8 @@
             background: #fafaf9; 
         }
 
-        .history-title {
-            font-size: 14px;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .history-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            overflow-y: auto;
-            max-height: 200px;
-            padding-right: 5px;
-        }
-
+        .history-title { font-size: 14px; font-weight: 800; color: var(--text-main); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .history-list { list-style: none; padding: 0; margin: 0; overflow-y: auto; max-height: 200px; padding-right: 5px; }
         .history-list::-webkit-scrollbar { width: 6px; }
         .history-list::-webkit-scrollbar-track { background: transparent; }
         .history-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
@@ -267,53 +289,16 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .history-info { display: flex; flex-direction: column; }
+        .history-info { display: flex; flex-direction: column; width: 100%; }
         .history-amount { font-weight: 800; color: var(--primary); font-size: 16px; }
-        .history-time { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 600; }
-        
-        .history-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .history-note { font-size: 13px; color: #0d9488; font-style: italic; margin-top: 6px; font-weight: 600; line-height: 1.4; white-space: pre-wrap; }
+        .history-time { font-size: 11px; color: var(--text-muted); margin-top: 6px; font-weight: 600; }
+        .history-right { display: flex; align-items: center; gap: 10px; margin-left: 15px; }
 
-        .history-icon {
-            background: #ecfdf5;
-            color: var(--primary);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-
-        .btn-hapus-item {
-            background: #fee2e2;
-            color: #ef4444;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: all 0.2s ease;
-        }
-
-        .btn-hapus-item:hover {
-            opacity: 1;
-            background: #ef4444;
-            color: white;
-            transform: scale(1.1);
-        }
-
+        .history-icon { background: #ecfdf5; color: var(--primary); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .btn-hapus-item { background: #fee2e2; color: #ef4444; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; opacity: 0.6; transition: all 0.2s ease; }
+        .btn-hapus-item:hover { opacity: 1; background: #ef4444; color: white; transform: scale(1.1); }
         .empty-state { text-align: center; color: #94a3b8; font-size: 13px; padding: 20px 0; font-style: italic; font-weight: 500;}
-
         .btn-reset { background: none; border: none; color: #ef4444; font-size: 12px; font-weight: 700; cursor: pointer; padding: 0; opacity: 0.7; transition: 0.3s; }
         .btn-reset:hover { opacity: 1; text-decoration: underline; }
 
@@ -335,14 +320,20 @@
             <h1>Total Kebaikan Terkumpul</h1>
             <div class="total-display" id="total-uang">Rp 0</div>
 
-            <div class="input-wrapper">
-                <span class="prefix">Rp</span>
-                <input type="number" id="input-nominal" placeholder="Masukkan nominal...">
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <span class="prefix">Rp</span>
+                    <input type="number" id="input-nominal" placeholder="Masukkan nominal...">
+                </div>
+
+                <div class="input-wrapper align-top">
+                    <span class="prefix-icon">✨</span>
+                    <textarea id="input-harapan" placeholder="Anda ingin apa Mas Ardian... (Bisa tulis doa yang panjang)" rows="3"></textarea>
+                </div>
             </div>
 
             <button class="btn-primary" onclick="tambahKebaikan()">Tebarkan Kebaikan</button>
             
-            <!-- Chat Bubble Mas Trio -->
             <div id="thank-you-msg" class="thank-you-msg">
                 <span id="pesan-variasi">Mas Trio bilang: Terimakasih Mas Ardian sudah melakukan kebaikan 💛</span>
             </div>
@@ -357,19 +348,23 @@
         </div>
     </div>
 
+    <!-- ELEMEN POP-UP ANIMASI BARU -->
+    <div id="animasi-kabulkan" class="animasi-kabulkan">
+        ✨ Oke aku kabulkan permintaanmu Mas Ardian ✨
+    </div>
+
     <script>
         let totalPemasukan = parseInt(localStorage.getItem('kebaikanTotal')) || 0;
         let riwayatKebaikan = JSON.parse(localStorage.getItem('kebaikanRiwayat')) || [];
         let animasiTerimaKasihTimer; 
+        let animasiKabulkanTimer;
 
-        // Kumpulan Variasi Pesan Mas Trio
         const kumpulanPesan = [
             "💬 Mas Trio: Alhamdulillah, terimakasih Mas Ardian sudah melakukan kebaikan hari ini! 💛",
             "💬 Mas Trio: MasyaAllah! Terimakasih Mas Ardian sudah melakukan kebaikan, semoga berkah melimpah. ✨",
             "💬 Mas Trio: Jangan pernah lelah jadi baik ya. Terimakasih Mas Ardian sudah melakukan kebaikan hari ini! 🌿",
             "💬 Mas Trio: Bangga banget! Terimakasih Mas Ardian sudah melakukan kebaikan, karena kebaikan selalu punya jalan pulang. 🌟",
-            "💬 Mas Trio: Mantap Mas! Terimakasih Mas Ardian sudah melakukan kebaikan. Semangat terus tebar manfaatnya! 🙏",
-            "💬 Mas Trio: Mas Trio senyum liat ini 😊. Terimakasih Mas Ardian sudah melakukan kebaikan!"
+            "💬 Mas Trio: Mantap Mas! Terimakasih Mas Ardian sudah melakukan kebaikan. Semangat terus tebar manfaatnya! 🙏"
         ];
 
         updateUI();
@@ -377,6 +372,9 @@
         function tambahKebaikan() {
             let inputField = document.getElementById("input-nominal");
             let nominal = parseInt(inputField.value);
+            
+            let harapanField = document.getElementById("input-harapan");
+            let harapanTeks = harapanField.value.trim();
 
             if (isNaN(nominal) || nominal <= 0) {
                 inputField.focus();
@@ -385,33 +383,47 @@
 
             totalPemasukan += nominal;
             let waktuSekarang = new Date().toLocaleString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-            let entriBaru = { nominal: nominal, waktu: waktuSekarang };
+            
+            let entriBaru = { 
+                nominal: nominal, 
+                harapan: harapanTeks,
+                waktu: waktuSekarang 
+            };
 
             riwayatKebaikan.unshift(entriBaru);
 
             simpanKeStorage();
             updateUI();
-            tampilkanTerimaKasih();
+
+            // LOGIKA ANIMASI:
+            // Jika ada teks harapan yang ditulis, tampilkan Pop-Up Spesial. 
+            // Jika dikosongi, tampilkan chat bubble Mas Trio biasa.
+            if (harapanTeks !== "") {
+                tampilkanAnimasiKabulkan();
+            } else {
+                tampilkanTerimaKasih();
+            }
 
             inputField.value = "";
+            harapanField.value = "";
             inputField.focus();
         }
 
-        function hapusSatuRiwayat(index) {
-            if(confirm("Mas Trio nanya: Yakin ingin menghapus entri ini?")) {
-                totalPemasukan -= riwayatKebaikan[index].nominal;
-                if (totalPemasukan < 0) totalPemasukan = 0; 
+        // FUNGSI ANIMASI POP-UP SPESIAL
+        function tampilkanAnimasiKabulkan() {
+            let popupKabulkan = document.getElementById("animasi-kabulkan");
+            let msgBox = document.getElementById("thank-you-msg");
+            
+            // Sembunyikan chat bubble biasa kalau sedang tampil
+            msgBox.classList.remove("show");
 
-                riwayatKebaikan.splice(index, 1);
+            clearTimeout(animasiKabulkanTimer);
+            popupKabulkan.classList.add("muncul");
 
-                simpanKeStorage();
-                updateUI();
-            }
-        }
-
-        function simpanKeStorage() {
-            localStorage.setItem('kebaikanTotal', totalPemasukan);
-            localStorage.setItem('kebaikanRiwayat', JSON.stringify(riwayatKebaikan));
+            // Tampil selama 4 detik sebelum menghilang
+            animasiKabulkanTimer = setTimeout(() => {
+                popupKabulkan.classList.remove("muncul");
+            }, 4000);
         }
 
         function tampilkanTerimaKasih() {
@@ -424,10 +436,24 @@
             clearTimeout(animasiTerimaKasihTimer);
             msgBox.classList.add("show");
             
-            // Mengubah durasi tampilnya pesan menjadi persis 1 Menit (60.000 ms)
             animasiTerimaKasihTimer = setTimeout(() => {
                 msgBox.classList.remove("show");
             }, 60000); 
+        }
+
+        function hapusSatuRiwayat(index) {
+            if(confirm("Mas Trio nanya: Yakin ingin menghapus entri ini?")) {
+                totalPemasukan -= riwayatKebaikan[index].nominal;
+                if (totalPemasukan < 0) totalPemasukan = 0; 
+                riwayatKebaikan.splice(index, 1);
+                simpanKeStorage();
+                updateUI();
+            }
+        }
+
+        function simpanKeStorage() {
+            localStorage.setItem('kebaikanTotal', totalPemasukan);
+            localStorage.setItem('kebaikanRiwayat', JSON.stringify(riwayatKebaikan));
         }
 
         function updateUI() {
@@ -443,9 +469,16 @@
             riwayatKebaikan.forEach((item, index) => {
                 let li = document.createElement("li");
                 li.className = "history-item";
+                
+                let elemenHarapan = "";
+                if (item.harapan && item.harapan !== "") {
+                    elemenHarapan = `<div class="history-note">"${item.harapan}"</div>`;
+                }
+
                 li.innerHTML = `
                     <div class="history-info">
                         <span class="history-amount">+ Rp ${item.nominal.toLocaleString('id-ID')}</span>
+                        ${elemenHarapan}
                         <span class="history-time">${item.waktu}</span>
                     </div>
                     <div class="history-right">
@@ -468,6 +501,13 @@
 
         document.getElementById("input-nominal").addEventListener("keypress", function(e) {
             if (e.key === "Enter") {
+                e.preventDefault();
+                document.getElementById("input-harapan").focus();
+            }
+        });
+
+        document.getElementById("input-harapan").addEventListener("keypress", function(e) {
+            if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 tambahKebaikan();
             }
